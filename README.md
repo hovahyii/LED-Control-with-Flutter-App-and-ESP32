@@ -63,9 +63,7 @@ Happy LED controlling!
 
 ### Like this project? You can show your appreciation by buying Hovah a coffee ☕
 
-<a target="_blank" rel="noopener noreferrer" href="https://www.buymeacoffee.com/hovahyii">
-<img src="https://github.com/appcraftstudio/buymeacoffee/raw/master/Images/snapshot-bmc-button.png" width="300" style="max-width:100%;">
-</a>
+<a target="_blank" rel="noopener noreferrer" href="https://www.buymeacoffee.com/hovahyii"><img src="https://github.com/appcraftstudio/buymeacoffee/raw/master/Images/snapshot-bmc-button.png" width="300" style="max-width:100%;"></a>
 
 
 
