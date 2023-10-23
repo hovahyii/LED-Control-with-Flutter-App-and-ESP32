@@ -3,7 +3,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 
 class ControlPanelPage extends StatefulWidget {
-  final String esp32Url = 'http://192.168.207.188'; // Replace with your ESP32 IP address: http://192.168.228.188 
+  final String esp32Url = 'http://192.168.247.188'; // Replace with your ESP32 IP address: http://192.168.228.188 
 
   @override
   _ControlPanelPageState createState() => _ControlPanelPageState();
