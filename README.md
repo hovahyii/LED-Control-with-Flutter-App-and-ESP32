@@ -1,13 +1,11 @@
 # UMPBot - LED Control with Flutter App and ESP32
 
+## Mobile Application
 <img src="./assets/Screenshot.jpg">
 
-## Demostration 
+## Project Demostration 
+<img src="./assets/demo.gif">
 
-<video width="320" height="240" controls autoplay>
-    <source src="./assets/demo.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
 
 
 ## Overview
