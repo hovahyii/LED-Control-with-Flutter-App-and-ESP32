@@ -23,7 +23,8 @@ void setup() {
     Serial.println("Connecting to WiFi...");
   }
   Serial.println("Connected to WiFi");
-
+  Serial.print("ESP32 IP address: ");
+  Serial.println(WiFi.localIP());
 
 
   server.on("/red/on", HTTP_GET, [](){
