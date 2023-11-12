@@ -3,14 +3,14 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 
 class ControlPanelPage extends StatefulWidget {
-  final String esp32Url = 'http://192.168.247.188'; // Replace with your ESP32 IP address: http://192.168.228.188 
+  final String esp32Url = 'http://192.168.247.188'; // Replace with your ESP32 IP address: http://192.168.228.188
 
   @override
   _ControlPanelPageState createState() => _ControlPanelPageState();
 }
 
 class _ControlPanelPageState extends State<ControlPanelPage> {
-  bool redLedOn = false; // Changed the variable name to redLed
+  bool redLedOn = false;
   bool greenLedOn = false;
   bool blueLedOn = false;
 
@@ -58,14 +58,31 @@ class _ControlPanelPageState extends State<ControlPanelPage> {
     }
   }
 
-  Icon _getLedIcon(int ledPin) {
+  Color _getButtonColor(int ledPin, bool ledStatus) {
+    if (ledStatus) {
+      switch (ledPin) {
+        case 12:
+          return Colors.red;
+        case 13:
+          return Colors.green;
+        case 14:
+          return Colors.blue;
+        default:
+          return Colors.grey; // Default color for unsupported LED pins
+      }
+    } else {
+      return Colors.grey;
+    }
+  }
+
+  Icon _getLedIcon(int ledPin, bool ledStatus) {
     Color iconColor = Colors.white;
-    if (ledPin == 12 && redLedOn) {
-      iconColor = Colors.red; // Change icon color to red
-    } else if (ledPin == 13 && greenLedOn) {
-      iconColor = Colors.green;
-    } else if (ledPin == 14 && blueLedOn) {
-      iconColor = Colors.lightBlue;
+    if (ledPin == 12 && ledStatus) {
+      iconColor = Colors.white;
+    } else if (ledPin == 13 && ledStatus) {
+      iconColor = Colors.white;
+    } else if (ledPin == 14 && ledStatus) {
+      iconColor = Colors.white;
     }
     return Icon(Icons.lightbulb, color: iconColor);
   }
@@ -74,50 +91,56 @@ class _ControlPanelPageState extends State<ControlPanelPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GridView.count(
-        crossAxisCount: 2, // Two squares per row
-        mainAxisSpacing: 16, // Vertical spacing between squares
-        crossAxisSpacing: 16, // Horizontal spacing between squares
-        padding: EdgeInsets.all(16), // Padding around the grid
+        crossAxisCount: 2,
+        mainAxisSpacing: 16,
+        crossAxisSpacing: 16,
+        padding: EdgeInsets.all(16),
         children: <Widget>[
           Container(
-            width: 150, // Square size
-            height: 150, // Square size
+            width: 150,
+            height: 150,
             child: ElevatedButton.icon(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.grey),
+                backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) => _getButtonColor(12, redLedOn),
+                ),
               ),
               onPressed: () => _sendControlRequest(12, !redLedOn),
-              icon: _getLedIcon(12),
-              label: Text(redLedOn ? 'Red LED Off' : 'Red LED On'),
+              icon: _getLedIcon(12, redLedOn),
+              label: Text(redLedOn ? 'Red LED On' : 'Red LED Off'),
             ),
           ),
           Container(
-            width: 150, // Square size
-            height: 150, // Square size
+            width: 150,
+            height: 150,
             child: ElevatedButton.icon(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.grey),
+                backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) => _getButtonColor(13, greenLedOn),
+                ),
               ),
               onPressed: () => _sendControlRequest(13, !greenLedOn),
-              icon: _getLedIcon(13),
-              label: Text(greenLedOn ? 'Green LED Off' : 'Green LED On'),
+              icon: _getLedIcon(13, greenLedOn),
+              label: Text(greenLedOn ? 'Green LED On' : 'Green LED Off'),
             ),
           ),
           Container(
-            width: 150, // Square size
-            height: 150, // Square size
+            width: 150,
+            height: 150,
             child: ElevatedButton.icon(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.grey),
+                backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) => _getButtonColor(14, blueLedOn),
+                ),
               ),
               onPressed: () => _sendControlRequest(14, !blueLedOn),
-              icon: _getLedIcon(14),
-              label: Text(blueLedOn ? 'Blue LED Off' : 'Blue LED On'),
+              icon: _getLedIcon(14, blueLedOn),
+              label: Text(blueLedOn ? 'Blue LED On' : 'Blue LED Off'),
             ),
           ),
           Container(
-            width: 150, // Square size
-            height: 150, // Square size
+            width: 150,
+            height: 150,
             child: ElevatedButton.icon(
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.grey),
